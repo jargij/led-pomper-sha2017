@@ -11,7 +11,7 @@ TARGET_PORT = 2342
 connection = pika.BlockingConnection(pika.ConnectionParameters(host=QUEUE_SERVER, credentials=pika.PlainCredentials(username='pomper', password='pomper')))
 channel = connection.channel()
 
-channel.queue_declare(queue=QUEUE_NAME, durable=True)
+channel.queue_declare(queue=QUEUE_NAME, durable=True, )
 
 def callback(ch, method, properties, body):
     decode_body = json.loads(body.decode('utf-8'))
@@ -19,9 +19,13 @@ def callback(ch, method, properties, body):
     sock.connect((TARGET_SERVER, TARGET_PORT))
     send = sock.send
     try:
+        messages = []
+        for item in decode_body["data"]:
+            message = 'PX %d %d %s\n' % (item["x"], item["y"], item["color"])
+            messages.append(message)
         while True:
-            for item in decode_body['data']:
-                send('PX %d %d %s\n' % (item['x'], item['y'], item['color']))
+            for singlemessage in messages:
+                send(singlemessage.encode('utf-8'))
     except Exception:
         import traceback
         print('er ging iets fout')
