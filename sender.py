@@ -7,10 +7,8 @@ import time
 QUEUE_SERVER = '188.166.23.205'
 QUEUE_NAME = 'pomper'
 
-# TARGET_SERVER = 'barflood.sha2017.org'
-TARGET_SERVER = 'sha.zpool.nl'
-TARGET_PORT = 1234
-# TARGET_PORT = 2342
+TARGET_SERVER = 'barflood.sha2017.org'
+TARGET_PORT = 2342
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host=QUEUE_SERVER, credentials=pika.PlainCredentials(username='pomper', password='pomper')))
 channel = connection.channel()
@@ -29,11 +27,9 @@ def callback(ch, method, properties, body):
                 message = 'PX %d %d %s\n' % (item["x"], item["y"], item["rgb"])
                 messages += message
             messages = messages.encode('utf-8')
-            # while True:
-            for item in range(10):
+            while True:
+            # for item in range(10):
                 send(messages)
-                time.sleep(0.1)
-            ch.basic_ack(delivery_tag=method.delivery_tag)
         except Exception:
             import traceback
             print('er ging iets fout')
