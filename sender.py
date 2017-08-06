@@ -4,10 +4,10 @@ import socket
 
 import time
 
-QUEUE_SERVER = '10.133.15.171'
+QUEUE_SERVER = '188.166.23.205'
 QUEUE_NAME = 'pomper'
 
-TARGET_SERVER = '151.216.89.27'
+TARGET_SERVER = '151.216.40.63'
 TARGET_PORT = 1234
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host=QUEUE_SERVER, credentials=pika.PlainCredentials(username='pomper', password='pomper')))
