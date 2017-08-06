@@ -38,7 +38,7 @@ def callback(ch, method, properties, body):
         import traceback
         print("Er wss iets in de socket fout")
         print(traceback.print_exc())
-        # callback(ch, method, properties, body)
+        callback(ch, method, properties, body)
 
 channel.basic_qos(prefetch_count=1, all_channels=True)
 channel.basic_consume(callback,
