@@ -90,6 +90,7 @@ def sendToQueue(arrayOfWorkers):
                                                                                                      password='pomper')))
     channel = connection.channel()
     channel.queue_declare(queue='pomper', durable=True,)
+    channel.queue_purge(queue='pomper')
     for worker in arrayOfWorkers:
         for pixels in worker:
             channel.basic_publish(exchange='',
