@@ -6,7 +6,7 @@ QUEUE_SERVER = '188.166.23.205'
 QUEUE_NAME = 'pomper'
 
 TARGET_SERVER = 'barflood.sha2017.org'
-TARGET_PORT = '2342'
+TARGET_PORT = 2342
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host=QUEUE_SERVER, credentials=pika.PlainCredentials(username='pomper', password='pomper')))
 channel = connection.channel()
@@ -14,13 +14,14 @@ channel = connection.channel()
 channel.queue_declare(queue=QUEUE_NAME, durable=True)
 
 def callback(ch, method, properties, body):
-    decode_body = json.loads(body)
+    decode_body = json.loads(body.decode('utf-8'))
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((TARGET_SERVER, TARGET_PORT))
     send = sock.send
     try:
-        for item in decode_body['data']:
-            send('PX %d %d %02x%02x%02x%02x\n' % (item['x'], item['y'], item['color']))
+        while True:
+            for item in decode_body['data']:
+                send('PX %d %d %s\n' % (item['x'], item['y'], item['color']))
     except Exception:
         import traceback
         print('er ging iets fout')
