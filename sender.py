@@ -8,7 +8,7 @@ QUEUE_SERVER = '188.166.23.205'
 QUEUE_NAME = 'pomper'
 
 TARGET_SERVER = 'barflood.sha2017.org'
-TARGET_PORT = 2341
+TARGET_PORT = 2342
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host=QUEUE_SERVER, credentials=pika.PlainCredentials(username='pomper', password='pomper')))
 channel = connection.channel()
