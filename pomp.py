@@ -1,6 +1,8 @@
 import socket
 import random
 from PIL import Image
+import json
+
 HOST = 'barflood.sha2017.org'
 PORT = 2342
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
