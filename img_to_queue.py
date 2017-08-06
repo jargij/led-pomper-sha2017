@@ -90,7 +90,7 @@ def sendToQueue(arrayOfWorkers):
                                                                    credentials=pika.PlainCredentials(username='pomper',
                                                                                                      password='pomper')))
     channel = connection.channel()
-    channel.queue_declare(queue='pomper', durable=True,)
+    channel.queue_declare(queue='pomper', durable=False,)
     channel.queue_purge(queue='pomper')
     for worker in arrayOfWorkers:
         for pixels in worker:
