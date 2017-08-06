@@ -21,12 +21,13 @@ screen_height = 240
 # Internal options
 queueAddress = ''
 fileName = ''
-workers = 9
+workers = 36
 
 Matrix = []
 
 
 def main(argv):
+    global fileName, workers
     inputFile = ''
     try:
         opts, args = getopt.getopt(argv, "hi:w:", ["file=", "workers="])
@@ -41,12 +42,12 @@ def main(argv):
             fileName = arg
             print("File to process: " + fileName)
         elif opt in ("-w", "--workers"):
-            workers = arg
+            workers = int(arg)
 
             if (math.sqrt(float(workers)) - int(math.sqrt(float(workers))) > 0):
                 print('The square root of amount of workers is not a whole numbers. GTFO!')
                 sys.exit()
-            print("Amount of available workers: " + workers)
+            print("Amount of available workers: " + str(workers))
     pompImage()
 
 
@@ -57,7 +58,7 @@ def addPixelToWorkFile(x, y, r, g, b, index_x, index_y, Matrix):
 
 def pompImage():
     print("Processiong image to JSON")
-    im = Image.open('poes.png').convert('RGB')
+    im = Image.open(fileName).convert('RGB')
     im.thumbnail((240, 240), Image.ANTIALIAS)
     _, _, width, height = im.getbbox()
     # start with x and y index 1
