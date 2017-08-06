@@ -4,6 +4,12 @@ During the SHA2017 there was a led screen in the main bar available to 'hack'.
 Because everyone was pushing pixels to it, we came up with the idea to spread
 the image we wanted to display over a scalable number of workers.
 
+# Dependencies
+- Python 3.5
+  - Pillow
+  - Pika
+- RabbitMQ
+
 # Workers
 Workers can be provisioned by changing some vars in sender.py.
 They read the available payload from the queue in RabbitMQ and push it to the defined server on the desired port.
@@ -19,5 +25,3 @@ There are two parameters that this script takes:
 
 # Disclaimer
 This project was made as fast as possible, some of the things could be done in a better way. But yeah, still hacking anyway...
-
-
