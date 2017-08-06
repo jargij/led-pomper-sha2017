@@ -6,11 +6,6 @@ import sys, getopt
 import math
 import pika
 
-HOST = 'barflood.sha2017.org'
-PORT = 2342
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect((HOST, PORT))
-send = sock.send
 
 # Screen VARS
 offset_x = 80
