@@ -30,7 +30,7 @@ def callback(ch, method, properties, body):
             while True:
             # for item in range(10):
                 send(messages)
-                time.sleep(0.0167)
+                time.sleep(0.005)
         except Exception:
             import traceback
             print('er ging iets fout')
